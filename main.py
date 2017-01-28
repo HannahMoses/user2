@@ -19,9 +19,11 @@ import cgi
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        textarea="<textarea style='background-color=pink'></textarea>"
-#        content = textarea
-        self.response.write(textarea)
+#        username_label = "<label style='color:red'>"Username"</label>"
+        message = "Hannah can create dynamic web pages"
+        textarea="<textarea name ='username'>"+message+"</textarea>"
+        content = textarea 
+        self.response.write(content)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
