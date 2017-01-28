@@ -15,10 +15,13 @@
 # limitations under the License.
 #
 import webapp2
+import cgi
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        textarea="<textarea style='background-color=pink'></textarea>"
+#        content = textarea
+        self.response.write(textarea)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
