@@ -15,20 +15,21 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        textarea1_label ="<label style='background-color:pink'>Username : </label>"
+        textarea1_label ="<label style='background-color:pink;display:inline-block;width:150px'>Username * : </label>"
         textarea1 = "<input type ='text' name='Username'/>"
-        textarea2_label ="<label style='background-color:pink'>Password : </label>"
+        textarea2_label ="<label style='background-color:pink;display:inline-block;width:150px'>Password * : </label>"
         textarea2 = "<input type ='text' name='password'/>"
-        textarea3_label ="<label style='background-color:pink'>Verify password : </label>"
+        textarea3_label ="<label style='background-color:pink;display:inline-block;width:150px'>Verify password * : </label>"
         textarea3 = "<input type ='text' name='Username'/>"
-        textarea4_label ="<label>Username : </label>"
-        textarea4 = "<input type ='text' name='Username'/>"
+        textarea4_label ="<label style=display:inline-block;width:150px>Email(optional) : </label>"
+        textarea4 = "<input type ='text' name='email'/>"
 
 
         message = "All other textareas  will work soon !"
         textarea = "<textarea type='number'>"+message+"</textarea>"
 
-        body = "<body style='background-color:rgb(0,180,200)'"
+        header = "<h2 style='background-color:rgb(0,180,200);color:white;text-align:center'>USER SIGN-UP</h2>"
+        body = "<body style='background-color:rgb(0,180,200)'>Please note that the first three fields ar required.<br><br></body>"
         submit="<input type='submit'/>"
         form= ("<form>"+
 
@@ -38,7 +39,7 @@ class MainHandler(webapp2.RequestHandler):
         textarea4_label+textarea4+"<br><br>"+
         textarea+"<br><br>"+submit+
         "</form>")
-        self.response.out.write(body+form)
+        self.response.out.write(header +body+form)
 
 app = webapp2.WSGIApplication([
     ('/',MainHandler)
