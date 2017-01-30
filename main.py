@@ -26,10 +26,10 @@ class MainHandler(webapp2.RequestHandler):
 
 
         message = "All other textareas  will work soon !"
-        textarea = "<textarea type='number'>"+message+"</textarea>"
+        textarea = "<textarea type='text' style='width:310px'>"+message+"</textarea>"
 
         header = "<h2 style='background-color:rgb(0,180,200);color:white;text-align:center'>USER SIGN-UP</h2>"
-        body = "<body style='background-color:rgb(0,180,200)'>Please note that the first three fields ar required.<br><br></body>"
+        body = "<body style='background-color:rgb(0,180,200)'>Please note that, the first three fields ar required.<br><br></body>"
         submit="<input type='submit'/>"
         form= ("<form>"+
 
