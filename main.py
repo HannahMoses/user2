@@ -19,23 +19,26 @@ class MainHandler(webapp2.RequestHandler):
         textarea1 = "<input type ='text' name='Username'/>"
         textarea2_label ="<label style='background-color:pink'>Password : </label>"
         textarea2 = "<input type ='text' name='password'/>"
-        textarea2_label ="<label style='background-color:pink'>Username : </label>"
-        textarea2 = "<input type ='text' name='Username'/>"
-        textarea2_label ="<label style='background-color:pink'>Username : </label>"
-        textarea2 = "<input type ='text' name='Username'/>"
+        textarea3_label ="<label style='background-color:pink'>Verify password : </label>"
+        textarea3 = "<input type ='text' name='Username'/>"
+        textarea4_label ="<label>Username : </label>"
+        textarea4 = "<input type ='text' name='Username'/>"
+
 
         message = "All other textareas  will work soon !"
         textarea = "<textarea type='number'>"+message+"</textarea>"
 
+        body = "<body style='background-color:rgb(0,180,200)'"
         submit="<input type='submit'/>"
         form= ("<form>"+
+
         textarea1_label+textarea1+"<br><br>"+
         textarea2_label+textarea2+"<br><br>"+
-        textarea2_label+textarea2+"<br><br>"+
-        textarea2_label+textarea2+"<br><br>"+
+        textarea3_label+textarea3+"<br><br>"+
+        textarea4_label+textarea4+"<br><br>"+
         textarea+"<br><br>"+submit+
         "</form>")
-        self.response.out.write(form)
+        self.response.out.write(body+form)
 
 app = webapp2.WSGIApplication([
     ('/',MainHandler)
