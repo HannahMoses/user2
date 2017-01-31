@@ -68,9 +68,9 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(header + content)
 
     def post(self):
-        postedheader = "<h2 style='font-family: 'Times New Roman';color:black' > Please signup again </h2>"
+        errorheader = "<h2 style='font-family: 'Times New Roman';color:black' > Please signup again </h2>"
         content = build_signup()
-        self.response.write(postedheader + content)
+        self.response.write(errorheader + content)
 
 app = webapp2.WSGIApplication([
     ('/',MainHandler)
