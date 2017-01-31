@@ -1,4 +1,4 @@
-print ("put")
+
 
 '''
 import webapp2
@@ -45,27 +45,32 @@ def display_field(fieldname):
             textarea_label ="<label style='font-size:16px;background-color:white;display:inline-block;width:150px'>"+fieldname+ "</label>"
             textarea =  "<input type ='text' name = 'fieldname'>"
             return textarea_label+ textarea
+def build_signup():
+    message = "I will validate and display the warnings !"
+    textarea = "<textarea type='text' style='width:500px'>"+message+"</textarea>"
+    body = "<body style='background-color:white'>Please enter your information accurately.<br><br></body>"
+#        header = "<h2 style='background-color:rgb(0,180,200);color:white;text-align:center'>USER SIGN-UP</h2>"
+#        body = "<body style='background-color:rgb(0,180,200)'>Please note that, the first three fields ar required.<br><br></body>"
+    submit="<input type='submit' value='Submit Query'/>"
+    form= ("<form method = 'post'>"+
+    display_field("Username")+"<br><br>"+
+    display_field("Password")+"<br><br>"+
+    display_field("Verify Password")+"<br><br>"+
+    display_field("Email(optional)")+"<br><br>"+
+    textarea+"<br><br>"+submit+
+    "</form>")
+    return  body + form
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        message = "I will validate and display the warnings !"
-        textarea = "<textarea type='text' style='width:500px'>"+message+"</textarea>"
         header = "<h2 style='font-family: 'Times New Roman';color:black' > Signup</h2>"
-        body = "<body style='background-color:white'><br></body>"
-#        header = "<h2 style='background-color:rgb(0,180,200);color:white;text-align:center'>USER SIGN-UP</h2>"
-#        body = "<body style='background-color:rgb(0,180,200)'>Please note that, the first three fields ar required.<br><br></body>"
-        submit="<input type='submit' value='Submit Query'/>"
-        form= ("<form method = 'post'>"+
-        display_field("Username")+"<br><br>"+
-        display_field("Password")+"<br><br>"+
-        display_field("Verify Password")+"<br><br>"+
-        display_field("Email(optional)")+"<br><br>"+
-        textarea+"<br><br>"+submit+
-        "</form>")
-        self.response.out.write(header +body+form)
+        content = build_signup()
+        self.response.out.write(header + content)
 
     def post(self):
-        self.response.write("Thankyou !")
+        postedheader = "<h2 style='font-family: 'Times New Roman';color:black' > Please signup again </h2>"
+        content = build_signup()
+        self.response.write(postedheader + content)
 
 app = webapp2.WSGIApplication([
     ('/',MainHandler)
