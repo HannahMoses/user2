@@ -37,7 +37,7 @@ app = webapp2.WSGIApplication([
 
 '''
 """
-SECOND VERSION USIN G THE FUNCTION display_field("fieldname") .
+THIRD VERSION POSTING errorheader  .
 """
 
 import webapp2
@@ -68,7 +68,7 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(header + content)
 
     def post(self):
-        errorheader = "<h2 style='font-family: 'Times New Roman';color:black' > Please signup again </h2>"
+        errorheader = "<h2 style='font-family: 'Times New Roman';color:black' > Please signup again ! </h2>"
         content = build_signup()
         self.response.write(errorheader + content)
 
