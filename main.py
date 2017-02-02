@@ -1,115 +1,100 @@
-
-"""
-FOURTH VERSION WITHOUT TEXTBOX and retaining user info in the field boxes
-"""
+#FIFTH VERSION BEFORE I STARTED UDACITY STYLE CODING
 import webapp2
-def build_signup():
-            body = "<body style='background-color:white'>.<br><br></body>"
-   #        body = "<body style='background-color:rgb(0,180,200)'>Please note that, the first three fields ar required.<br><br></body>"
-            submit="<input type='submit' value='Submit Query'/>"
-            form= ("<form method = 'post'>"+
-            display_field("Username")+"<br><br>"+
-            display_field("Password")+"<br><br>"+
-            display_field("Verify Password")+"<br><br>"+
-            display_field("Email(optional)")+"<br><br>"+
+import cgi
+#import buildup.py
+USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+def valid_username(username):
+    return username and USER_RE.match(username)
+
+PASS_RE = re.compile(r"^.{3,20}$")
+def valid_password(password):
+    return password and PASS_RE.match(password)
+
+EMAIL_RE = re.compile(r'^[\S]+@[\S]+\.[S]+$')
+def valid_email(email):
+    return not email or EMAIL_RE.match(email)
+def display_user(Username):
+    textarea_label="<label type='text' style='display:inline-block;width:150px;color:red'>" +Username+"</label>"
+    textarea = "<input type='text' name='username'/>"
+    return textarea_label + textarea
+def display_pwd(Password):
+    textarea_label="<label type='text' style='display:inline-block;width:150px;color:red'>" +Password+"</label>"
+    textarea = "<input type='text' name='password'/>"
+    return textarea_label + textarea
+def display_vpwd(VerifyPassword):
+    textarea_label="<label type='text' style='display:inline-block;width:150px;color:red'>" +VerifyPassword+"</label>"
+    textarea = "<input type='text' name='Vpassword'/>"
+    return textarea_label + textarea
+def display_email(EmailOptional):
+    textarea_label="<label type='text' style='display:inline-block;width:150px;color:red'>" +EmailOptional+"</label>"
+    textarea = "<input type='text' name='email'/>"
+    return textarea_label + textarea
+
+warned = "    " + "This is not a valid email."
+def display_fieldout(fieldname,warned):
+    textarea_label="<label type='text' style='display:inline-block;width:150px;color:red'>" +fieldname+"</label>"
+    textarea = "<input type='text' name='ipgiven'/>"
+    warning = warned
+    return textarea_label + textarea + warning
+def build_signout():
+    body = "<body style='background-color:white;'>Hi.</body>"
+    submit = "<input type='submit' value='Submit Query'/>"
+    form =("<form method='post'>"+
+            display_fieldout("Username","")+"<br><br>"+
+            display_fieldout("Password","")+"<br><br>"+
+            display_fieldout("Verify Password","")+"<br><br>"+
+            display_fieldout("Email Optional",warned)+"<br><br>"+
             submit+
             "</form>")
-            return body + form
-
-def display_field(fieldname):
-            textarea_label ="<label style='font-size:16px;background-color:white;display:inline-block;width:150px'>"+fieldname+ "</label>"
-            textarea =  "<input type ='text' name = 'info'>"
-            return textarea_label+ textarea
-
-
-def valid_Username(textarea):
-    for i in textarea :
-        if i !=" " :
-            return True
-
- # def display_errmessage(fieldname):
- #      if fieldname == "Username" :
- #          errmessage = "That's not a valid username."
- #      else if fieldname == "Password" :
- #          errmessage = "Passwords don't match."
- #      else if fieldname == "Email(optional)" :
- #          errmessage = "You must enter a valid email address."
-
-#     errmessage_label ="<label style='font-size:16px;color:red;display:inline-block;width:150px'>"+errmessage+ "</label>"
-#     return errmessage_label
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-#        header = "<h2 style='background-color:rgb(0,180,200);color:white;text-align:center'>USER SIGN-UP</h2>"
-        header = "<h2 style='font-family: 'Times New Roman';color:black' > Signup</h2>"
-        content = build_signup()
-        self.response.out.write(header + content)
-
-    def post(self):
-        #if (valid_Username and valid_password and valid_VerifyPassword) :
-#        User = display_field()
-#        if valid_Username(Username) :
-        user = self.request.get("info")
-        correctinfoheader = "<h2 style='font-family: 'Times New Roman';color:black' > Welcome, "+ user + " !</h2>"
-        content = build_signup()
-        self.response.write(correctinfoheader+ user + content)
-
-        # if valid_Username(Username) :
-        #     self.response.write(correctinfoheader + content)
-        # else:
-        #     errorheader = "<h2 style='font-family: 'Times New Roman';color:black' > Please signup again !</h2>"
-        #     errormessage = " !"
-        #     self.response.write(errorheader + errormessage + content)
-
-app = webapp2.WSGIApplication([
-    ('/',MainHandler)
-    ],debug=True)
-
-
-'''
-"""
-THIRD VERSION POSTING errorheader  .
-"""
-
-import webapp2
-def display_field(fieldname):
-            textarea_label ="<label style='font-size:16px;background-color:white;display:inline-block;width:150px'>"+fieldname+ "</label>"
-            textarea =  "<input type ='text' name = 'fieldname'>"
-            return textarea_label+ textarea
+    return body + form
 def build_signup():
-    message = "I will validate and display the warnings !"
-    textarea = "<textarea type='text' style='width:500px'>"+message+"</textarea>"
-    body = "<body style='background-color:white'>.<br><br></body>"
-#        header = "<h2 style='background-color:rgb(0,180,200);color:white;text-align:center'>USER SIGN-UP</h2>"
-#        body = "<body style='background-color:rgb(0,180,200)'>Please note that, the first three fields ar required.<br><br></body>"
-    submit="<input type='submit' value='Submit Query'/>"
-    form= ("<form method = 'post'>"+
-    display_field("Username")+"<br><br>"+
-    display_field("Password")+"<br><br>"+
-    display_field("Verify Password")+"<br><br>"+
-    display_field("Email(optional)")+"<br><br>"+
-    textarea+"<br><br>"+submit+
-    "</form>")
-    return  body + form
+    body = "<body style='background-color:white;'>Hi.</body>"
+    submit = "<input type='submit' value='Submit Query'/>"
+    form =("<form method='post'>"+
+            display_user("Username")+"<br><br>"+
+            display_pwd("Password")+"<br><br>"+
+            display_vpwd("Verify Password")+"<br><br>"+
+            display_email("Email Optional")+"<br><br>"+
+            submit+
+            "</form>")
+    return body + form
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        header = "<h2 style='font-family: 'Times New Roman';color:black' > Signup</h2>"
-        content = build_signup()
+        header = "<h1>Signup</h1>"
+        content = build_signup() #"g"
         self.response.out.write(header + content)
-
     def post(self):
-        error = True
-        if error == True :
-            errorheader = "<h2 style='font-family: 'Times New Roman';color:black' > Please signup again ! </h2>"
-            content = build_signup()
-            self.response.write(errorheader + content)
-        else :
-            correctinfoheader = "<h2 style='font-family: 'Times New Roman';color:black' > Thankyou !</h2>"
-            content = build_signup()
-            self.response.write(correctinfoheader+  content)
+        faulty_form = False
+        user = "<label style='color:cyan'>" +self.request.get("username")+" </label>"
+#        validuser = cgi. escaped(user)
+        passw = "<label style='color:cyan'>" +self.request.get("password")+" </label>"
+        VerifiedPassword = "<label style='color:cyan'>" +self.request.get("Vpassword")+" </label>"
+        Email = "<label style='color:cyan'>" +self.request.get("email")+" </label>"
+        correctheader = "<h1> Welcome, "+user+" ! </h1>"
+        errorheader = "<h1>Please signup again, "+user+"." +passw +","+  self.request.get("password") +" ," + Email+ ", is not valid data.</h1>"
+        inputinfo = dict(Username = username,Email=email)
 
+        if not valid_username("username"):
+            inputinfo['error_username'] = "That's not a valid username."
+            faulty_form = True
+        if not valid_password("password"):
+            inputinfo['error_password'] = "That's not a valid password."
+            faulty_form = True
+        elif password !=verify:
+            inputinfo['error_verify'] = "Your passwords didn't match."
+            faulty_form = True
+        if not valid_email("email"):
+            inputinfo['error_email'] = "That's not a valid email."
+            faulty_form = True
+        if faulty_form:
+            header = errorheader
+        else:
+            header = correctheader
+
+        content = build_signout()
+        self.response.out.write(header + content)
 
 app = webapp2.WSGIApplication([
     ('/',MainHandler)
     ],debug=True)
-'''
