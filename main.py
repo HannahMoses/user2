@@ -2,17 +2,22 @@
 import webapp2
 import cgi
 #import buildup.py
-USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
-def valid_username(username):
-    return username and USER_RE.match(username)
-
-PASS_RE = re.compile(r"^.{3,20}$")
-def valid_password(password):
-    return password and PASS_RE.match(password)
-
-EMAIL_RE = re.compile(r'^[\S]+@[\S]+\.[S]+$')
-def valid_email(email):
-    return not email or EMAIL_RE.match(email)
+# USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+# def valid_username(username):
+#     return username and USER_RE.match(username)
+def valid_username(Username):
+    return True
+def valid_password(Password):
+    return  True
+def valid_email(Email):
+    return True
+# PASS_RE = re.compile(r"^.{3,20}$")
+# def valid_password(password):
+#     return password and PASS_RE.match(password)
+#
+# EMAIL_RE = re.compile(r'^[\S]+@[\S]+\.[S]+$')
+# def valid_email(email):
+#     return not email or EMAIL_RE.match(email)
 def display_user(Username):
     textarea_label="<label type='text' style='display:inline-block;width:150px;color:red'>" +Username+"</label>"
     textarea = "<input type='text' name='username'/>"
@@ -66,22 +71,22 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(header + content)
     def post(self):
         faulty_form = False
-        user = "<label style='color:cyan'>" +self.request.get("username")+" </label>"
+        user = "<label style='color:rgb(128,134,23)'>" +self.request.get("username")+" </label>"
 #        validuser = cgi. escaped(user)
         passw = "<label style='color:cyan'>" +self.request.get("password")+" </label>"
         VerifiedPassword = "<label style='color:cyan'>" +self.request.get("Vpassword")+" </label>"
         Email = "<label style='color:cyan'>" +self.request.get("email")+" </label>"
         correctheader = "<h1> Welcome, "+user+" ! </h1>"
         errorheader = "<h1>Please signup again, "+user+"." +passw +","+  self.request.get("password") +" ," + Email+ ", is not valid data.</h1>"
-        inputinfo = dict(Username = username,Email=email)
-
+        inputinfo = dict(Username = user,Email="email")
+        verify = passw
         if not valid_username("username"):
             inputinfo['error_username'] = "That's not a valid username."
             faulty_form = True
         if not valid_password("password"):
             inputinfo['error_password'] = "That's not a valid password."
             faulty_form = True
-        elif password !=verify:
+        elif VerifiedPassword !=verify:
             inputinfo['error_verify'] = "Your passwords didn't match."
             faulty_form = True
         if not valid_email("email"):
